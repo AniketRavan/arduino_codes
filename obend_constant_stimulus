@@ -1,0 +1,26 @@
+#define basePin 7
+int cycleTime = 10000;
+int timeOn = 8000;
+int timeOff = cycleTime - timeOn;
+unsigned long time;
+int cycle = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(basePin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  time = millis();
+  if (time > (cycle + 1)*cycleTime){
+    cycle = cycle + 1;
+  }
+  if (time - cycle*cycleTime > timeOn){
+    digitalWrite(basePin, 0);  
+  }
+  else if (time - cycle*cycleTime < timeOn){
+    digitalWrite(basePin, HIGH);
+  }
+}
